@@ -1,0 +1,12 @@
+[Unit]
+Description=Devicekeeper read-only host probe
+After=network.target
+
+[Service]
+Type=oneshot
+Environment=DEVICEKEEPER_ROOT=/data/plugins/devicekeeper
+Environment=DEVICEKEEPER_STATE_DIR=/data/plugins/devicekeeper/state
+ExecStart=/usr/bin/python3 /data/plugins/devicekeeper/deploy/host-probe.py
+TimeoutStartSec=25
+User=root
+Group=root

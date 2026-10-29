@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  devicekeeper:
+    image: local/devicekeeper:1.0.0
+    container_name: devicekeeper
+    restart: unless-stopped
+    read_only: true
+    user: "10001:10001"
+    init: false
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    pids_limit: 64
+    mem_limit: 192m
+    cpus: 1.0
+    ports:
+      - "127.0.0.1:9365:9365"
+    environment:
+      HOST_ROOT: /host
+      STATE_DIR: /state
+      PORT: "9365"
+      BIND_ADDRESS: "0.0.0.0"
+      COLLECT_INTERVAL_SECONDS: "5"
+    volumes:
+      - /proc:/host/proc:ro
+      - /sys:/host/sys:ro
+      - /nas/pool0:/host/nas/pool0:ro
+      - /data/plugins/devicekeeper/state:/state
+    tmpfs:
+      - /tmp:size=16m,mode=1777
+    logging:
+      driver: json-file
+      options:
+        max-size: "2m"
+        max-file: "3"

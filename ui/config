@@ -1,0 +1,33 @@
+{
+  "title": "设备管家",
+  "desc": "查看 NAS 设备状态与本地监测记录",
+  "icon": "/devicekeeper.icon",
+  "type": "url",
+  "permission": [
+    "admin"
+  ],
+  "dev_type": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "url": [
+    {
+      "dev_type": [
+        1
+      ],
+      "url": "/index.html"
+    },
+    {
+      "dev_type": [
+        2,
+        3,
+        4
+      ],
+      "url": "/index.html"
+    }
+  ],
+  "sortid": 55,
+  "widget": []
+}

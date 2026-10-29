@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<title>设备管家 · 本地监测</title>
+<link rel="icon" href="icon.png">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<svg class="symbols" aria-hidden="true"><defs>
+<symbol id="i-grid" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+<symbol id="i-drive" viewBox="0 0 24 24"><rect x="5" y="2.5" width="14" height="19" rx="2.5"/><circle cx="12" cy="10" r="4"/><path d="M9 18h6m-3-8 3 3"/></symbol>
+<symbol id="i-service" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="7" rx="2"/><rect x="3" y="14" width="18" height="7" rx="2"/><path d="M7 7.5h.01M7 17.5h.01M11 7.5h6M11 17.5h6"/></symbol>
+<symbol id="i-record" viewBox="0 0 24 24"><path d="M6 3h11l3 3v15H4V3h2m3 5h6m-6 5h7m-7 4h7"/></symbol>
+<symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 10a8 8 0 1 0-1 7M20 4v6h-6"/></symbol>
+<symbol id="i-back" viewBox="0 0 24 24"><path d="m14 5-7 7 7 7"/></symbol>
+<symbol id="i-next" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></symbol>
+<symbol id="i-check" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></symbol>
+<symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+<symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+<symbol id="i-box" viewBox="0 0 24 24"><path d="m3 7 9-5 9 5v10l-9 5-9-5V7Zm0 0 9 5 9-5M12 12v10M7.5 4.5l9 5"/></symbol>
+<symbol id="i-chip" viewBox="0 0 24 24"><rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4m6-4v4M9 18v4m6-4v4M2 9h4m-4 6h4m12-6h4m-4 6h4"/></symbol>
+<symbol id="i-alert" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v6m0 4h.01"/></symbol>
+</defs></svg>
+<div class="app">
+<aside class="rail" aria-label="主导航">
+ <div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i></span>设备管家</div>
+ <nav class="nav">
+  <button type="button" data-page="overview" class="active" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg>设备概况</button>
+  <button type="button" data-page="storage"><svg class="icon"><use href="#i-drive"/></svg>存储空间</button>
+  <button type="button" data-page="services"><svg class="icon"><use href="#i-service"/></svg>运行服务</button>
+  <button type="button" data-page="events"><svg class="icon"><use href="#i-record"/></svg>监测记录</button>
+ </nav>
+ <div class="rail-footer"><span>数据留在这台 NAS</span>本地监测，无需云端服务<br>设备管家 v1.0</div>
+</aside>
+<main class="workspace">
+ <header class="topbar">
+  <div class="heading"><button class="mobile-back" type="button" aria-label="返回设备概况" id="back"><svg class="icon"><use href="#i-back"/></svg></button><h1 id="page-title">设备管家</h1><span class="preview-label" id="connection-label">正在连接</span></div>
+  <div class="top-actions"><span id="updated">正在连接采集器…</span><button type="button" class="refresh" id="refresh" aria-label="刷新设备数据"><svg class="icon"><use href="#i-refresh"/></svg><span>刷新</span></button></div>
+ </header>
+ <section class="page" id="page-overview" aria-label="设备概况">
+  <div class="device-banner panel">
+   <div class="device-copy"><div class="device-name"><i class="status-dot" aria-hidden="true"></i><span id="device-name">正在读取设备</span></div><h2 id="device-state">正在采集</h2><p class="device-subtitle">设备状态与最近变化，在这里看清楚。</p><div class="identity-meta"><span><svg class="icon"><use href="#i-clock"/></svg><span id="device-uptime">已运行 --</span></span><span id="device-firmware">固件未提供</span><span>本地监测</span></div></div>
+   <span class="banner-caption" id="device-caption">双盘位家庭存储</span>
+   <div class="machine" aria-hidden="true"><svg viewBox="0 0 240 220"><defs><linearGradient id="body" x1="0" x2="1"><stop stop-color="#fdfefe"/><stop offset=".75" stop-color="#eaf0f7"/><stop offset="1" stop-color="#d9e3ef"/></linearGradient><linearGradient id="bay" x1="0" x2="1"><stop stop-color="#394e68"/><stop offset="1" stop-color="#24374f"/></linearGradient><filter id="shadow"><feGaussianBlur stdDeviation="6"/></filter></defs><ellipse cx="130" cy="205" rx="83" ry="8" fill="#9eb6d1" opacity=".28" filter="url(#shadow)"/><path d="M60 34 166 22q12-1 19 9l22 25v136q0 10-11 12l-132 5q-17 0-17-17V53q0-17 13-19Z" fill="#c9d8e9"/><path d="m167 24 24 30 15 4-21-28q-6-7-18-6" fill="#e3ecf5"/><rect x="48" y="42" width="144" height="163" rx="15" fill="url(#body)" stroke="#c6d6e6"/><path d="M60 44h116" stroke="white" stroke-width="2"/><rect x="65" y="67" width="49" height="114" rx="7" fill="url(#bay)"/><rect x="122" y="67" width="49" height="114" rx="7" fill="url(#bay)"/><path d="M74 76v94m57-94v94" stroke="#4a607c"/><rect x="86" y="146" width="6" height="20" rx="3" fill="#70a2f5"/><rect x="143" y="146" width="6" height="20" rx="3" fill="#70a2f5"/><path d="M82 179h14m43 0h14" stroke="#15283f" stroke-linecap="round"/><circle cx="178" cy="57" r="2" fill="#3c8a70"/><path d="M105 192h27" stroke="#b7c7d9" stroke-width="2" stroke-linecap="round"/></svg></div>
+  </div>
+  <div class="attention" id="attention"><svg class="icon"><use href="#i-check" id="attention-icon"/></svg><span id="attention-text">正在等待第一轮采集。</span><span class="right-note" id="attention-note">本地监测</span></div>
+  <div class="main-grid">
+   <section class="panel resource-panel" aria-labelledby="resource-title">
+    <div class="panel-title"><h2 id="resource-title">资源动态</h2><span class="muted" id="resource-updated">等待采集</span></div>
+    <div class="metric-tabs" role="tablist" aria-label="资源指标">
+     <button class="metric-tab active" type="button" role="tab" id="tab-cpu" aria-controls="resource-chart" aria-selected="true" data-metric="cpu"><span>处理器</span><b>--<em>%</em></b></button>
+     <button class="metric-tab" type="button" role="tab" id="tab-memory" aria-controls="resource-chart" aria-selected="false" tabindex="-1" data-metric="memory"><span>内存</span><b>--<em>%</em></b></button>
+     <button class="metric-tab" type="button" role="tab" id="tab-temp" aria-controls="resource-chart" aria-selected="false" tabindex="-1" data-metric="temp"><span>CPU 温度</span><b>--<em>°C</em></b></button>
+     <button class="metric-tab" type="button" role="tab" id="tab-network" aria-controls="resource-chart" aria-selected="false" tabindex="-1" data-metric="network"><span>接收速率</span><b>--<em>MiB/s</em></b></button>
+    </div>
+    <div role="tabpanel" id="resource-chart" aria-labelledby="tab-cpu">
+     <div class="chart-head"><h3 id="chart-subtitle">4 核处理器使用率</h3><div class="segmented" aria-label="趋势时间范围"><button type="button" data-range="1h" aria-pressed="false">1 小时</button><button type="button" data-range="24h" class="active" aria-pressed="true">24 小时</button><button type="button" data-range="7d" aria-pressed="false">7 天</button></div></div>
+     <div class="chart"><svg class="plot" viewBox="0 0 500 160" preserveAspectRatio="none" role="img" aria-label="CPU 使用率趋势"><defs><linearGradient id="area" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#245bdb" stop-opacity=".13"/><stop offset="1" stop-color="#245bdb" stop-opacity=".01"/></linearGradient></defs><g stroke="#e9eef5" stroke-width="1"><path d="M25 12H493M25 72H493M25 132H493"/></g><g fill="#607286" font-size="9" font-family="sans-serif"><text x="0" y="15" id="axis-top">100</text><text x="5" y="75" id="axis-mid">50</text><text x="10" y="135">0</text></g><path id="chart-area" fill="url(#area)"/><path id="chart-line" fill="none" stroke="#245bdb" stroke-width="2.2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/><circle id="chart-end" r="3.3" fill="#245bdb" stroke="#fff" stroke-width="2"/></svg><div class="chart-axis"><span id="time-start">--</span><span id="time-mid">--</span><span id="time-end">现在</span></div></div>
+     <div class="chart-summary"><span id="metric-detail">等待采集</span><span class="chart-live-key">本地趋势</span></div>
+    </div>
+   </section>
+   <section class="panel storage-panel" aria-labelledby="storage-title">
+    <div class="panel-title"><h2 id="storage-title">存储空间</h2><span class="pill" id="storage-pill">等待采集</span></div>
+    <div class="capacity"><div class="capacity-total"><strong id="storage-used-value">--</strong><span id="storage-used-unit">已用</span><small id="storage-total">共 --</small></div><div class="capacity-bar" id="storage-bar" aria-label="存储池使用率"><i id="storage-bar-fill"></i></div><div class="capacity-legend"><span id="storage-used-pct">已使用 --</span><span id="storage-remaining">剩余 --</span></div></div>
+    <div class="disks" id="overview-disks"></div>
+    <div class="storage-foot"><small id="storage-source">容量来源加载中</small><button class="text-button" data-go="storage" type="button">查看存储<svg class="icon"><use href="#i-next"/></svg></button></div>
+   </section>
+  </div>
+  <section class="panel services-panel" aria-labelledby="services-title"><div class="panel-title"><h2 id="services-title">运行服务</h2><button class="text-button" data-go="services" type="button">查看全部<svg class="icon"><use href="#i-next"/></svg></button></div><div class="services-list" id="overview-services"></div></section>
+  <div class="footer-note"><span>本地采集，状态与趋势均保存在设备上。</span><button type="button" class="text-button" data-detail="source">了解数据来源</button></div>
+ </section>
+ <section class="page" id="page-storage" hidden aria-label="存储空间">
+  <p class="page-intro">先看存储池，再看每块硬盘。池容量按固件返回的逻辑空间显示。</p>
+  <section class="panel wide-panel"><div class="panel-title" style="padding:0 0 22px"><h2>主存储池</h2><span class="pill" id="storage-page-pill">等待采集</span></div><div class="capacity"><div class="capacity-total"><strong id="storage-page-used-value">--</strong><span id="storage-page-used-unit">已用</span><small id="storage-page-total">共 --</small></div><div class="capacity-bar" id="storage-page-bar" aria-label="存储池使用率"><i id="storage-page-bar-fill"></i></div><div class="capacity-legend"><span id="storage-page-used-pct">已使用 --</span><span id="storage-page-remaining">剩余 --</span></div></div><div id="storage-page-meta"></div><p class="info-note" id="storage-page-note">等待采集存储池信息。</p></section>
+  <div class="detail-layout section-spacer" id="storage-detail-disks"></div>
+ </section>
+ <section class="page" id="page-services" hidden aria-label="运行服务">
+  <p class="page-intro">查看已发现的容器和选定系统服务。运行状态与业务健康分别判断。</p>
+  <section class="panel"><div class="panel-title"><h2>容器服务</h2><span class="pill" id="services-count">等待采集</span></div><div class="services-list" id="services-containers"></div></section>
+  <section class="panel section-spacer"><div class="panel-title"><h2>系统服务</h2><span class="muted">固定监测范围</span></div><div class="services-list" id="services-system"></div></section>
+  <p class="info-note">容器正在运行，表示进程处于运行状态。未提供健康检查的容器，业务健康显示为“未提供”。</p>
+ </section>
+ <section class="page" id="page-events" hidden aria-label="监测记录">
+  <p class="page-intro">记录插件开始监测后的变化，帮助了解异常何时发生、何时恢复。</p>
+  <section class="panel wide-panel"><div class="panel-title" style="padding:0 0 8px"><h2 id="events-title">最近记录</h2><span class="muted">本地规则记录</span></div><div id="events-list"></div></section>
+  <p class="info-note" id="events-note">记录从插件开始监测后产生。设备重启与插件重启会分别记录。</p>
+ </section>
+</main>
+<nav class="bottom-nav" aria-label="移动端主导航"><button type="button" class="active" data-page="overview" aria-current="page"><svg class="icon"><use href="#i-grid"/></svg>概况</button><button type="button" data-page="storage"><svg class="icon"><use href="#i-drive"/></svg>存储</button><button type="button" data-page="services"><svg class="icon"><use href="#i-service"/></svg>服务</button><button type="button" data-page="events"><svg class="icon"><use href="#i-record"/></svg>记录</button></nav>
+</div>
+<template id="service-row-template">
+ <button type="button" class="service-row">
+  <span class="service-icon"><svg class="icon"><use href="#i-box"/></svg></span>
+  <span class="service-text"><span class="service-name"></span><small class="service-meta"></small></span>
+  <span class="service-state"><i class="status-dot" aria-hidden="true"></i><span class="state-text"></span></span>
+  <svg class="icon"><use href="#i-next"/></svg>
+ </button>
+</template>
+<template id="disk-row-template">
+ <div class="disk">
+  <i class="disk-symbol" aria-hidden="true"></i>
+  <div class="disk-label"><span class="disk-name"></span><small class="disk-meta"></small></div>
+  <div class="disk-reading"><span class="disk-temp"></span><small class="disk-health"></small></div>
+ </div>
+</template>
+<template id="event-row-template">
+ <div class="event-row">
+  <time></time>
+  <div><h3><i class="event-icon"></i><span class="event-title"></span></h3><p class="event-detail"></p><small class="event-state"></small></div>
+ </div>
+</template>
+<div class="toast" id="toast" role="status" hidden></div>
+<dialog class="dialog" id="detail-dialog" aria-labelledby="dialog-title"><div class="dialog-head"><h2 id="dialog-title"></h2><button type="button" aria-label="关闭详情" id="close-dialog"><svg class="icon"><use href="#i-close"/></svg></button></div><div id="dialog-content"></div><button class="full-button" id="dialog-done" type="button">知道了</button></dialog>
+<script src="app.js" defer></script>
+</body>
+</html>
+

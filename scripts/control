@@ -1,0 +1,52 @@
+#!/bin/sh
+set -eu
+
+ROOT="${DEVICEKEEPER_ROOT:-/data/plugins/devicekeeper}"
+DOCKER="${DOCKER_BIN:-/data/docker/docker}"
+CONTAINER="devicekeeper"
+TIMER="devicekeeper-host-probe.timer"
+
+log() {
+    logger -t devicekeeper-control "$*"
+}
+
+start_service() {
+    systemctl daemon-reload
+    systemctl enable "$TIMER"
+    systemctl start "$TIMER"
+    if "$DOCKER" container inspect "$CONTAINER" >/dev/null 2>&1; then
+        "$DOCKER" start "$CONTAINER" >/dev/null
+    else
+        log "container $CONTAINER is not installed"
+        return 1
+    fi
+}
+
+stop_service() {
+    systemctl stop "$TIMER" 2>/dev/null || true
+    if "$DOCKER" container inspect "$CONTAINER" >/dev/null 2>&1; then
+        "$DOCKER" stop "$CONTAINER" >/dev/null
+    fi
+}
+
+case "${1:-}" in
+    enable|postinstall|postupgrade)
+        start_service
+        ;;
+    disable|preuninstall)
+        stop_service
+        ;;
+    preinstall)
+        ;;
+    postuninstall)
+        ;;
+    preupgrade)
+        ;;
+    status)
+        "$DOCKER" container inspect -f '{{.State.Status}}' "$CONTAINER" 2>/dev/null || echo stopped
+        ;;
+    *)
+        log "ignored action ${1:-}"
+        exit 0
+        ;;
+esac

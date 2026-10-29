@@ -1,0 +1,20 @@
+{
+  "plugin": "devicekeeper",
+  "name": "设备管家",
+  "id": 9901,
+  "version": "1.0.0",
+  "tags": [
+    "tool"
+  ],
+  "timestamp": 1793260800,
+  "desc": "查看 NAS 资源趋势、存储池、Docker 容器和本地监测记录。",
+  "developer": "lzcy1326",
+  "publisher": "Local",
+  "changelog": "首个只读版本：设备资源、固件存储池、Docker 与系统服务监测。",
+  "system": false,
+  "size": 120000,
+  "port": "9365",
+  "type": "standard",
+  "forceupgrade": false,
+  "ext": {}
+}
