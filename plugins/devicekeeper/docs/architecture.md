@@ -1,14 +1,14 @@
 # 小米 NAS 设备管家：技术架构与界面设计
 
-版本：0.1（设计评审稿） · 日期：2026-10-29 · 插件标识建议：`devicekeeper`
+版本：1.0 · 日期：2026-10-30 · 插件标识：`devicekeeper`
 
 ## 1. 结论与交付范围
 
 采用“米家原生鉴权入口 + 插件 CGI 网关 + 本地只读采集 + SQLite 趋势存储”的本地服务型插件架构。前端围绕设备概况、资源、存储、服务组织信息；优先回答“现在发生了什么、哪里需要关注、数据是否可信”。
 
-数据来源已在项目对应 NAS 上核查：CPU、内存、负载、运行时间、温度可从 Linux 节点获取；固件已有设备状态和存储 API；Docker Engine 的本地 HTTP API 已返回真实容器。详情见 [接口核查记录](device-manager-interface-verification.md)。原生接口不是公开稳定 SDK，不能把当前固件行为推广到所有版本。
+数据来源已在项目对应 NAS 上核查：CPU、内存、负载、运行时间、温度可从 Linux 节点获取；固件已有设备状态和存储 API；Docker Engine 的本地 HTTP API 已返回真实容器。详情见 [验收记录](verification.md)。原生接口不是公开稳定 SDK，不能把当前固件行为推广到所有版本。
 
-本次交付包括本文、核查记录和 [可交互页面原型](design/device-manager.html)，附 [截图与原型检查记录](design/README.md)。原型使用明确标注的示例数据，供桌面和移动端评审；它没有接入 NAS，也不是已完成部署的插件。
+本次交付为已实现并通过安装后验收的插件。页面、接口和部署结果见插件 [README](../README.md) 与 [验收记录](verification.md)，效果图见 [images](images/desktop-overview.png)。
 
 ## 2. 产品边界
 
@@ -91,7 +91,7 @@
 | 首次进入 | 分区骨架；CPU 两次采样前显示“正在采集”，不显示 0% |
 | 切换指标 | 曲线、单位、当前值、统计范围一起切换；选中态有形状和文字反馈 |
 | 切换时间 | 标题使用实际请求范围；历史不足显示“已记录 23 分钟”，保留空白，不补假点 |
-| 查看峰值 | 触摸或键盘定位采样桶，展示时间、均值、最小值、最大值；原型仅演示均值切换 |
+| 查看峰值 | 触摸或键盘定位采样桶，展示时间、均值、最小值、最大值；页面在 1h/24h/7d 间切换均值 |
 | 下拉 / 点击刷新 | 立即读最新快照，必要时触发合并刷新；不为每个用户创建一套采集循环 |
 | 未更新 | 保留最后值并标注时间；超过阈值显示“数据已过期”，断线曲线不连接 |
 | 无读取能力 | 显示“此固件未提供读数”或“无读取权限”；0 是有效数字，不能代表缺失 |
@@ -108,19 +108,18 @@
 
 图标采用“**双盘位 NAS + 状态波形**”：白色设备机身和两条深色盘位延续页面设备插画，右下角圆形波形标记表示设备监测。蓝色底承接页面主色，让图标在应用列表中与存储设备的轮廓一同识别；不放文字、百分比或细小刻度。
 
-![设备管家插件图标](design/icons/icon.png)
+![设备管家插件图标](../assets/icon.png)
 
 底色使用 `#3C7DF4 → #2455CD` 的轻微明度变化；机身 `#FFFFFF → #DDE9FC`；盘位 `#344E73 → #203651`；波形 `#245BDB`。512px 母版中背景圆角 112px，主体在约 70–442px 的安全范围内。双盘位和波形保留较粗轮廓，已查看 48px 缩略图，仍可区分设备与监测标记。
 
 | 资源 | 用途与格式 |
 | --- | --- |
-| [devicekeeper.svg](design/icons/devicekeeper.svg) | 可编辑矢量母版，512×512 viewBox，无字体或外链依赖 |
-| [icon.png](design/icons/icon.png) | 300×300 RGBA PNG，运行时图标源文件 |
-| [devicekeeper.icon](design/icons/devicekeeper.icon) | 与 icon.png 字节一致，供部署时复制到 `/data/plugin/www/icon/devicekeeper.icon` |
-| [devicekeeper-store-512.png](design/icons/devicekeeper-store-512.png) | 512×512 RGBA PNG，应用商店素材预备文件 |
-| [devicekeeper-preview-48.png](design/icons/devicekeeper-preview-48.png) | 48×48 缩略图，用于检查应用列表中的辨识度 |
+| [icon.svg](../assets/icon.svg) | 可编辑矢量母版，512×512 viewBox，无字体或外链依赖 |
+| [icon.png](../assets/icon.png) | 300×300 RGBA PNG，运行时图标源文件 |
+| [icon-512.png](../assets/icon-512.png) | 512×512 RGBA PNG，应用商店素材预备文件 |
+| [icon-48.png](../assets/icon-48.png) | 48×48 缩略图，用于检查应用列表中的辨识度 |
 
-所有文件位于 `docs/design/icons/`，尚未复制到 NAS。PNG 的圆角外部透明；`.icon` 只是 PNG 文件的部署扩展名，不是 Windows ICO。图标中的波形是固定品牌图形，不代表设备实时正常或异常；运行状态仍由页面文字和状态组件表达。
+所有文件位于插件的 `assets/`。部署时安装脚本把 `ui/icon.png` 复制为 `/data/plugin/www/icon/devicekeeper.icon`；`.icon` 只是 PNG 文件的部署扩展名，不是 Windows ICO。图标中的波形是固定品牌图形，不代表设备实时正常或异常；运行状态仍由页面文字和状态组件表达。
 
 ## 4. 技术选型与组件边界
 
@@ -180,7 +179,7 @@ flowchart TD
 - 内存：`used_bytes = (MemTotal - MemAvailable) × 1024`；缓存可回收部分不会全算成已用。百分比以同次采样 total 为分母。
 - 温度：sysfs 毫摄氏度除 1000；固件 `"53℃"` 转为 53。保留精度，UI 通常 1 位小数；传感器类型和关联依据随结果保留。
 - 网络：bytes 差分除以单调时钟间隔；展示接收、发送速率，单位 KiB/s / MiB/s；不与 Mbps 链路速率混淆。计数回退、接口替换、设备重启时产生空点。
-- 存储：统一内部 bytes。默认 UI 使用 TB / GB（十进制），详情可切 TiB / GiB（2 的幂）；原型也用十进制。固件池本次约 8.00 TB、已用约 705.9 GB、8.82%。statvfs 使用 total、used、available 各自同源，保留保留空间差异。
+- 存储：统一内部 bytes。默认 UI 使用 TB / GB（十进制），详情可切 TiB / GiB（2 的幂）；页面也使用十进制。固件池本次约 8.00 TB、已用约 705.9 GB、8.82%。statvfs 使用 total、used、available 各自同源，保留保留空间差异。
 - 时间：API 为 UTC RFC3339；间隔由单调时钟计算，UI 按用户本地时区显示。客户端时间与 NAS 时间偏差过大时提示。NTP 回拨、boot_id 改变时不跨段连线。
 
 口径参考：[Linux /proc](https://docs.kernel.org/filesystems/proc.html)、[hwmon sysfs](https://docs.kernel.org/hwmon/sysfs-interface.html)、[Docker API 1.41](https://docs.docker.com/reference/api/engine/version/v1.41/)。这是指标定义依据；NAS 特有字段以实机核查为准。
@@ -322,7 +321,7 @@ systemd 直接运行前台主进程；server.sh 与 control 委托同一组 unit
 | --- | --- |
 | D0 认证及固件适配验证 | App 可读取身份；两用户隔离通过；selector 与休眠影响已测；字段及来源固定 |
 | D1 核心采集与 API | CPU 差分 / 内存 / 温度 / 服务成功；缺权限与超时不会拖垮整页 |
-| D2 页面落地 | 按原型实现；移动 / 桌面、真实 WebView 返回与安全区通过；数据质量状态完整 |
+| D2 页面落地 | 按设计实现；移动 / 桌面、真实 WebView 返回与安全区通过；数据质量状态完整 |
 | D3 历史与事件 | 断线断点、跨重启、聚合峰值、时钟回拨、配额与数据库恢复通过 |
 | D4 部署验收 | 注册不影响其他应用；重启恢复；disable / 升级 / 回滚演练完成 |
 
@@ -344,4 +343,4 @@ systemd 直接运行前台主进程；server.sh 与 control 委托同一组 unit
 
 进入实施前必须关闭的未决项：plugin.cgi 的可信身份上下文与管理员判定；真实 App HTTP 调用；插件生命周期的准确动作；持久目录及 SQLite 文件系统兼容性；休眠期间存储与温度采集副作用；目标 WebView 特性和宿主导航集成。它们不影响本次设计交付，但会影响运行插件能否安全、准确地发布。
 
-参考资料：[开发规范](xiaomi-nas-plugin-development-spec.md)、[实机接口核查](device-manager-interface-verification.md)、[交互原型](design/device-manager.html)。开发规范是第三方实测整理；本文以当前实机证据修正其路径和认证假设，最终以实施验收结果为准。
+参考资料：[开发规范](../../../docs/nas/plugin-development-spec.md)、[验收记录](verification.md)、[桌面效果图](images/desktop-overview.png)。开发规范是第三方实测整理；本文以当前实机证据修正其路径和认证假设，最终以实施验收结果为准。

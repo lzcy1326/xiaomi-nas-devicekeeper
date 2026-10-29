@@ -10,6 +10,9 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: plugins/devicekeeper
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

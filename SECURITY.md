@@ -2,10 +2,11 @@
 
 ## Scope
 
-Devicekeeper is a read-only monitor. It does not restart the NAS, start or stop
-containers, change fan speed, or delete files. The only host-level privileged
-component is `devicekeeper-host-probe.service`, which reads Docker metadata and
-fixed firmware helpers as root and writes a sanitized JSON snapshot.
+This repository currently ships the devicekeeper plugin. It is a read-only
+monitor: it does not restart the NAS, start or stop containers, change fan
+speed, or delete files. The only host-level privileged component is
+`devicekeeper-host-probe.service`, which reads Docker metadata and fixed
+firmware helpers as root and writes a sanitized JSON snapshot.
 
 ## Reporting
 
@@ -19,6 +20,8 @@ reproduction, and the expected impact. Do not include tokens, private keys,
 serial numbers, or real device identifiers.
 
 ## Deployment notes
+
+Devicekeeper-specific deployment notes:
 
 - Keep `127.0.0.1:9365` on loopback. Do not publish it through a public reverse
   proxy or a firewall rule.
