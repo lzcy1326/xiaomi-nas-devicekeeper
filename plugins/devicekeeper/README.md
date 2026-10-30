@@ -21,6 +21,8 @@
 
 更多页面：[存储空间](docs/images/desktop-storage.png)。
 
+小红书发布包：[docs/social/README.md](../../docs/social/README.md)。
+
 截图使用演示主机名 `nas-demo` 和模拟数据，不包含真实 NAS 信息。
 
 ## 特性
