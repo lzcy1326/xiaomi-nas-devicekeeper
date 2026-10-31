@@ -44,6 +44,9 @@
 `/D:/plugin/.../api/v1/...`。现在 UI 从 `/plugin/<用户>/<插件>/` 路径段
 推导 API 根路径，手机端和桌面端共用同一套逻辑。
 
+桌面端微应用容器不会自动裁剪 `position: fixed` 的侧边栏。侧边栏现在改为
+容器内网格布局，工作区在弹窗内部滚动，不再延伸到弹窗外侧。
+
 ### UI 目录定位
 
 固件 `plugin.cgi` 通过 `fexecve` 启动子 CGI，子进程的 `$0` 为 `/dev/fd/3`。原实现使用 `dirname "$0"` 推导 UI 目录，导致首页、CSS 和 JS 返回 404。现在优先从 `REQUEST_URI` 还原 `/data/plugin/www/<user>/<plugin>`。

@@ -3,7 +3,7 @@ set -eu
 
 ROOT="${DEVICEKEEPER_ROOT:-/data/plugins/devicekeeper}"
 DOCKER="${DOCKER_BIN:-/data/docker/docker}"
-IMAGE="${DEVICEKEEPER_IMAGE:-local/devicekeeper:1.0.1}"
+IMAGE="${DEVICEKEEPER_IMAGE:-local/devicekeeper:1.0.2}"
 ALPINE_IMAGE="${DEVICEKEEPER_ALPINE_IMAGE:-docker.1ms.run/library/alpine:3.20}"
 UID_VALUE="${DEVICEKEEPER_UID:-}"
 STATE="$ROOT/state"

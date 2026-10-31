@@ -12,7 +12,7 @@
 
 | 插件 | 说明 | 文档 | 版本 |
 | --- | --- | --- | --- |
-| [设备管家 Devicekeeper](plugins/devicekeeper/README.md) | 只读设备监测：CPU、内存、温度、风扇、网络、存储池、Docker 和 systemd | [README](plugins/devicekeeper/README.md) · [架构](plugins/devicekeeper/docs/architecture.md) · [验收](plugins/devicekeeper/docs/verification.md) | [v1.0.1](https://github.com/lzcy1326/xiaomi-nas-devicekeeper/releases/tag/v1.0.1) |
+| [设备管家 Devicekeeper](plugins/devicekeeper/README.md) | 只读设备监测：CPU、内存、温度、风扇、网络、存储池、Docker 和 systemd | [README](plugins/devicekeeper/README.md) · [架构](plugins/devicekeeper/docs/architecture.md) · [验收](plugins/devicekeeper/docs/verification.md) | [v1.0.2](https://github.com/lzcy1326/xiaomi-nas-devicekeeper/releases/tag/v1.0.2) |
 
 ## 快速开始
 

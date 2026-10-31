@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.2 - 2026-10-31
+
+- Keep the desktop sidebar inside the plugin modal by using a contained grid
+  layout instead of viewport-fixed positioning.
+- Scroll the plugin workspace inside the modal on desktop.
+
 ## 1.0.1 - 2026-10-31
 
 - Fixed desktop client API requests resolving to `/D:/plugin/...` instead of

@@ -2,7 +2,7 @@
   "plugin": "devicekeeper",
   "name": "设备管家",
   "id": 9901,
-  "version": "1.0.1",
+  "version": "1.0.2",
   "tags": [
     "tool"
   ],
@@ -10,7 +10,7 @@
   "desc": "查看 NAS 资源趋势、存储池、Docker 容器和本地监测记录。",
   "developer": "lzcy1326",
   "publisher": "Local",
-  "changelog": "修复桌面客户端插件入口与 API 路径兼容性。",
+  "changelog": "修复桌面端侧边栏超出弹窗边界与内部滚动。",
   "system": false,
   "size": 120000,
   "port": "9365",

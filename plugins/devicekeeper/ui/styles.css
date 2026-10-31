@@ -9,4 +9,20 @@
 @media(prefers-reduced-motion:no-preference){.metric-tab:after{transition:background .15s}.refresh:active svg{transform:rotate(30deg)}.nav button,.bottom-nav button{transition:background .15s}}
 .attention.warn{color:#946000}.attention.error{color:#B33243}.status-dot.warn{background:#946000}.status-dot.error{background:#B33243}.pill.warn{background:#fff4db;color:#946000}.pill.error{background:#fdecef;color:#B33243}.service-state.warn{color:#946000}.service-state.error{color:#B33243}.disk-reading small.unknown{color:var(--muted)}.preview-label.warn{background:#fff4db;color:#946000}.preview-label.error{background:#fdecef;color:#B33243}.metric-tab[data-quality="stale"] b,.metric-tab[data-quality="unsupported"] b{color:var(--muted)}.metric-tab[data-quality="stale"] span::after,.metric-tab[data-quality="unsupported"] span::after{content:" · 数据暂缺";font-size:10px;color:var(--muted)}.empty-state{padding:18px 0;color:var(--muted);font-size:12px;line-height:1.8}.event-state{display:block;margin-top:6px;font-size:11px;color:var(--muted)}.event-icon.open{background:#946000}.event-icon.resolved{background:var(--green)}.chart-head h3.empty{color:var(--muted);font-weight:500}.service-row[aria-disabled="true"]{opacity:.72}.detail-kv b{max-width:62%;overflow-wrap:anywhere}.dialog .detail-kv b{max-width:60%}
 
+/* The desktop client mounts micro-apps inside its own modal. A fixed rail
+   escapes that modal, so keep the rail in the plugin's layout flow. */
+@media(min-width:960px){
+  html,body{height:100%;overflow:hidden}
+  .app{position:relative;display:grid;grid-template-columns:196px minmax(0,1fr);height:100%;min-height:0}
+  .rail{position:sticky;inset:0 auto auto auto;height:100%;align-self:start}
+  .workspace{margin-left:0;height:100%;overflow-y:auto}
+  .toast{position:absolute;left:50%;bottom:24px}
+}
+@media(min-width:960px) and (max-width:1150px){
+  .app{grid-template-columns:170px minmax(0,1fr)}
+}
+@media(min-width:1600px){
+  .workspace{margin-left:auto;margin-right:auto}
+}
+
 

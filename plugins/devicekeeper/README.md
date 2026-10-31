@@ -89,7 +89,7 @@ sudo DEVICEKEEPER_UID=<mi-uid> ./deploy/install-nas.sh
 安装脚本会：
 
 1. 安装并启动 15 秒宿主探针 timer。
-2. 在 NAS 本地构建 `local/devicekeeper:1.0.1`。
+2. 在 NAS 本地构建 `local/devicekeeper:1.0.2`。
 3. 启动只读容器，并只发布到 `127.0.0.1:9365`。
 4. 备份 `/data/plugin/u<mi-uid>.list` 后追加 `devicekeeper`。
 5. 创建 Web 目录、源码目录和图标链接。
@@ -122,7 +122,7 @@ https://<NAS>:443/plugin/<mi-uid>/devicekeeper/index.html
 | --- | --- | --- |
 | `DEVICEKEEPER_UID` | 无，必填 | 安装到哪个米家用户目录 |
 | `DEVICEKEEPER_ROOT` | `/data/plugins/devicekeeper` | 插件源码目录 |
-| `DEVICEKEEPER_IMAGE` | `local/devicekeeper:1.0.1` | 本地镜像名 |
+| `DEVICEKEEPER_IMAGE` | `local/devicekeeper:1.0.2` | 本地镜像名 |
 | `DEVICEKEEPER_ALPINE_IMAGE` | `docker.1ms.run/library/alpine:3.20` | 构建基础镜像 |
 | `DOCKER_BIN` | `/data/docker/docker` | Docker CLI 路径 |
 
