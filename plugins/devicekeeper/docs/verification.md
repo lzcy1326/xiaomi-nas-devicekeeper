@@ -1,6 +1,6 @@
 # 验收记录
 
-验收日期：2026-10-30（Asia/Shanghai）。
+验收日期：2026-10-30（Asia/Shanghai）；桌面客户端入口复测：2026-10-31。
 
 对象：一台四核 aarch64 小米 NAS，固件 `1.0.9.462` 系列。本文不记录真实主机名、内网地址、Tailscale 名称、Mi UID 或凭据。
 
@@ -31,6 +31,18 @@
 | 安全配置 | 只读 rootfs、非 root、cap-drop ALL、无 Docker Socket 挂载 | 通过 |
 
 ## 修复记录
+
+### 桌面客户端入口
+
+小米智能存储桌面端在启动时缓存 `get_app_list`，只会动态刷新
+`plugin_list`。如果插件安装时客户端已经打开，“全部应用”里能看到图标，
+但点击时 `gl.allApps` 中还没有该条目，页面会抛出
+`Cannot read properties of undefined (reading 'id')`，表现为点击无反应。
+安装后重启一次桌面客户端即可让 `get_app_list` 返回新插件。
+
+桌面端还会把 iframe 路径带成 `/D:/plugin/...`，导致相对 API 请求变成
+`/D:/plugin/.../api/v1/...`。现在 UI 从 `/plugin/<用户>/<插件>/` 路径段
+推导 API 根路径，手机端和桌面端共用同一套逻辑。
 
 ### UI 目录定位
 

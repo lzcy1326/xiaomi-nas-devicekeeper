@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   devicekeeper:
-    image: local/devicekeeper:1.0.0
+    image: local/devicekeeper:1.0.1
     container_name: devicekeeper
     restart: unless-stopped
     read_only: true

@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.0.1 - 2026-10-31
+
+- Fixed desktop client API requests resolving to `/D:/plugin/...` instead of
+  `/plugin/...`.
+- Documented the one-time desktop client restart needed after installing a
+  plugin while the client is already running.
+
 ## 1.0.0 - 2026-10-30
 
 - Initial read-only Xiaomi NAS device monitor.

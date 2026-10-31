@@ -12,7 +12,7 @@
 
 | 插件 | 说明 | 文档 | 版本 |
 | --- | --- | --- | --- |
-| [设备管家 Devicekeeper](plugins/devicekeeper/README.md) | 只读设备监测：CPU、内存、温度、风扇、网络、存储池、Docker 和 systemd | [README](plugins/devicekeeper/README.md) · [架构](plugins/devicekeeper/docs/architecture.md) · [验收](plugins/devicekeeper/docs/verification.md) | [v1.0.0](https://github.com/lzcy1326/xiaomi-nas-devicekeeper/releases/tag/v1.0.0) |
+| [设备管家 Devicekeeper](plugins/devicekeeper/README.md) | 只读设备监测：CPU、内存、温度、风扇、网络、存储池、Docker 和 systemd | [README](plugins/devicekeeper/README.md) · [架构](plugins/devicekeeper/docs/architecture.md) · [验收](plugins/devicekeeper/docs/verification.md) | [v1.0.1](https://github.com/lzcy1326/xiaomi-nas-devicekeeper/releases/tag/v1.0.1) |
 
 ## 快速开始
 
@@ -23,6 +23,8 @@ sudo DEVICEKEEPER_UID=<mi-uid> ./deploy/install-nas.sh
 ```
 
 安装前请阅读对应插件的 README 和安全策略。插件默认只监听宿主回环地址，页面通过米家原生 `plugin.cgi` 登录链路访问。
+
+如果小米智能存储桌面客户端在安装时已经打开，安装完成后请**重启客户端一次**。客户端只在启动时拉取完整应用列表，重启后新插件才能从“全部应用”正常打开。
 
 ## 目录结构
 

@@ -3,7 +3,27 @@
 
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
-  const API_ROOT = new URL('api/v1/', window.location.href);
+  // The Windows desktop wrapper may expose a /D:/plugin/... path. Keep only
+  // the firmware's /plugin/<user>/<plugin>/ segment for API resolution.
+  const PLUGIN_PATH_RE = /\/plugin\/[^/?#]+\/[^/?#]+\//;
+
+  function resolveApiRoot() {
+    const locationHref = window.location.href;
+    const scriptSrc = document.currentScript?.src || '';
+    const candidates = [locationHref, document.baseURI, scriptSrc];
+    const pluginMatch = candidates
+      .map((value) => String(value || '').match(PLUGIN_PATH_RE))
+      .find(Boolean);
+    const basePath = pluginMatch?.[0] || window.location.pathname.replace(/[^/]*$/, '');
+    const originMatch = candidates
+      .map((value) => String(value || '').match(/^(https?:\/\/[^/]+)/i))
+      .find(Boolean);
+    const base = originMatch?.[1] ? `${originMatch[1]}/` : locationHref;
+    return new URL(`${basePath}api/v1/`, base);
+  }
+
+  const API_ROOT = resolveApiRoot();
+  console.info('[devicekeeper] api root', API_ROOT.href);
 
   const pageNames = {
     overview: '设备管家',
